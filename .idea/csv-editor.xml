@@ -3,6 +3,34 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
+        <entry key="C:\Users\pfenn\PycharmProjects\AppliedBusiness\data\cartabandonment.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="C:\Users\pfenn\PycharmProjects\AppliedBusiness\data\leadscoring.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="C:\Users\pfenn\PycharmProjects\AppliedBusiness\data\levers.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
+        <entry key="C:\Users\pfenn\PycharmProjects\AppliedBusiness\data\pricing.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="C:\Users\pfenn\PycharmProjects\AppliedBusiness\data\segmentation.csv">
           <value>
             <Attribute>
