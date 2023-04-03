@@ -6,7 +6,6 @@
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
-\usepackage{xcolor}
 \newcommand{\BibTeX}{\textrm{B \kern -.05em \textsc{i \kern -.025em b} \kern -.08em
 T \kern -.1667em \lower .7ex \hbox{E} \kern -.125emX}}
 \begin{document}
@@ -24,7 +23,7 @@ pfenningp@wit.edu}
 
 \begin{abstract}
 This document is a model and instructions for \LaTeX.
-This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes, 
+This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes,
 or Math in Paper Title or Abstract.
 \end{abstract}
 
@@ -34,35 +33,66 @@ component, formatting, style, styling, insert
 
 \section{Introduction}\label{sec:introduction}
 
-\subsection{History of Encryption}\label{subsec:history-of-encryption}
+The world we live in has become wildly dependent on fast transfer of information.
+Everything from our work and education to our entertainment and social life often requires the internet as a medium.
+With this abundance of information, how can one ensure that their personal data remains private to bad actors?
+Enter the field encryption, the process of encoding information.
+Encryption allows one to take a plaintext message we wish to transmit and transforms it into a ciphertext.
+Said ciphertext is illegible to those who do not have a \textit{key}.
 
-\subsection{Importance in Today's World}\label{subsec:importance-in-today's-world}
+Most modern encryption processes create a \textit{psuedo-random} key via a defined algorithm.
+These algorithms can be broken into two schemes: \textbf{Symmetric-key Encryption} and \textbf{Public-key Encryption.}
+Symmetric-key Encryption algorithms create a single secret-key which both the sender and receiver have.
+This key is used to both encrypt and decrypt the message.
+The security of this method directly depends on the holders of the key as anyone who has it can read the cipher.
+Public-key Encryption algorithms require the message receiver to generate both a public and private key.
+The receiver shares the public key with the trusted sender who uses it to encrypt a message.
+Said message is sent to the receiver where the private key is used to decrypt it.
+Because the private key is the only way to decipher the message, public-keys can be shared with impunity.
+Though both methods do nothing to prevent the cipher from being intercepted by a third party, if the algorithm is strong enough, it should be illegible.
+
+Billions of packets of information flow throughout the internet on a daily basis.
+The larger the packet, the longer the encryption will.
+In this paper we will develop our own algorithm to encrypt several audio files of varying.
+The aforementioned algorithm will be developed using what is known as a \textbf{Chaotic Neural Network.}
+This algorithm will be benchmarked for both efficiency and effectiveness against one symmetric-key method, \textbf{Advanced Encryption Standard} (AES), as well as one public-key method, the \textbf{Rivest–Shamir–Adleman} algorithm (RSA).
+
 
 \section{Background}\label{sec:background}
 
+There are many possible algorithms for encryption.
+One trait they share is the creation of a large \textit{psuedo-random} sequence used to create a cipher.
+Chaos is fast and efficient way to create these sequences.
+
 \subsection{What is Chaos?}\label{subsec:what-is-chaos?}
 
-\begin{itemize}
-    \item Chaos is statistically indistinguishable from randomness~\cite{Alligood}
-    \item Sensitivity to initial conditions
-    \item Initial conditions used to build key
-    \item \ldots
-\end{itemize}
+Chaos is the scientific study of dynamic systems.
+These systems are abundant in nature and are highly sensitive to initial conditions.
+Edward Lorenz, the founding-father of chaos theory, once described chaos as
 
-\subsection{Numeric Public-Key Algorithms}\label{subsec:numeric-public-key-algorithms}
-
-\begin{itemize}
-    \item RSA
-    \item AES
-    \item Triple DES
-    \item Blowfish
-    \item Twofish
-    \item \ldots
-\end{itemize}
-
-\section{Literature Review}\label{sec:literature-review}~\cite{Lokesh,Hamdy,Gujral}
+\begin{framed}
+    \begin{quote}
+        When the present determines the future, but the approximate present does not approximately determine the future.~\cite{Alligood}
+    \end{quote}
+\end{framed}
 
 
+This
+
+\section{Literature Review}\label{sec:literature-review}
+
+\subsection{Chaotic neural network based pseudo-random sequence generator for cryptographic applications}\cite{Lokesh}
+\subsection{Cryptography using Artificial Neural Networks}\cite{Gujral}
+\subsection{Public key Cryptography Based on Chaotic Neural Network}\cite{Hamdy}
+\subsection{Chaos: An Introduction to Dynamical Systems}\cite{Alligood}
+\subsection{A Novel Color Image Encryption Scheme Based on Hyperchaos and Hopfield Chaotic Neural Network}\cite{Wu2022}
+\subsection{An Image Encryption Algorithm Based on a New Fractional Order Chaotic Neural Network}\cite{Li2022}
+\subsection{Comparison of Cryptography by Chaotic Neural Network and by AES}\cite{Skovajsova2019}
+\subsection{Design of chaotic neural network based method for cryptographic substitution box}\cite{Ahmad2016}
+\subsection{The Study of Chaotic Neural Network and its Applications in Associative Memory}\cite{He1999}
+\subsection{On Chaotic Neural Network Design: A New Framework}\cite{Qin2017}
+\subsection{An Empirical Investigation of Using ANN Based N-State Sequential Machine and Chaotic Neural Network in the Field of Cryptography}\cite{Shukla2012}
+\subsection{A Review on Applications of Chaotic Maps in Pseudo-Random Number Generators and Encryption}\cite{Naik2022}
 
 \section{Building the Network}\label{sec:building-the-network}
 
