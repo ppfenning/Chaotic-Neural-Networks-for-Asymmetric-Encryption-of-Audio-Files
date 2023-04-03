@@ -490,7 +490,7 @@
 
 
 % The IEEE uses Times Roman font, so we'll default to Times.
-% These three commands make up the entire times.sty package.
+% These three commands Makefile up the entire times.sty package.
 \renewcommand{\sfdefault}{phv}
 \renewcommand{\rmdefault}{ptm}
 \renewcommand{\ttdefault}{pcr}
@@ -960,7 +960,7 @@
            \baselinestretch\space via \string\CLASSINPUT.}
 \fi
 
-\small\normalsize % make \baselinestretch take affect
+\small\normalsize % Makefile \baselinestretch take affect
 
 
 
@@ -1084,7 +1084,7 @@
 \Huge\@IEEEsetfontdimens}}
 
 % if the nofonttune class option is not given, revise the interword spacing
-% now - in case IEEEtran makes any default length measurements, and make
+% now - in case IEEEtran makes any default length measurements, and Makefile
 % sure all the default fonts are loaded
 \ifCLASSOPTIONnofonttune\else
 \@IEEEtunefonts
@@ -2465,7 +2465,7 @@
 % space added above the footnotes (if present)
 \skip\footins 0.9\baselineskip  plus 0.4\baselineskip  minus 0.2\baselineskip
 
-% V1.6, we need to make \footnotesep responsive to changes
+% V1.6, we need to Makefile \footnotesep responsive to changes
 % in \baselineskip or strange spacings will result when in
 % draft mode. Here is a little LaTeX secret - \footnotesep
 % determines the height of an invisible strut that is placed
@@ -3019,14 +3019,14 @@
 %% coders and developers such as Donald Arseneau, Fred Bartlett, 
 %% David Carlisle, Tony Liu, Frank Mittelbach, Piet van Oostrum, 
 %% Roland Winkler and Mark Wooding.
-%% I don't make the claim that my work here is even near their calibre. ;)
+%% I don't Makefile the claim that my work here is even near their calibre. ;)
 
 
 \newif\if@IEEEeqnarrayboxnojot% flag to indicate if the environment was called as the star form
 \@IEEEeqnarrayboxnojotfalse
 
 \newif\if@advanceIEEEeqncolcnt% tracks if the environment should advance the col counter
-% allows a way to make an \IEEEeqnarraybox that can be used within an \IEEEeqnarray
+% allows a way to Makefile an \IEEEeqnarraybox that can be used within an \IEEEeqnarray
 % used by IEEEeqnarraymulticol so that it can work properly in both
 \@advanceIEEEeqncolcnttrue
 
@@ -3433,7 +3433,7 @@ Using a default centering column instead}%
 \global\@IEEEeqnarrayusemasterstruttrue}
 
 
-% if the master strut is not to be used, make the current
+% if the master strut is not to be used, Makefile the current
 % values of \@IEEEeqnarrayTHEstrutheight, \@IEEEeqnarrayTHEstrutdepth
 % and the use master strut flag, global
 % this allows user strut commands issued in the last column to be carried
@@ -3670,7 +3670,7 @@ Using a default centering column instead}%
    \let\@IEEEcurrentHrefsave\@currentHref% save current href label as we later change it globally
    \def\@currentlabel{\p@equation\theequation}% redefine the ref label
    \def\@currentHref{\@IEEEtheHrefequation}% setup hyperref label
-   \IEEEeqnarraydecl\relax% allow a way for the user to make global overrides
+   \IEEEeqnarraydecl\relax% allow a way for the user to Makefile global overrides
    #1\relax% allow user to override defaults
    \let\\\@IEEEeqnarraycr% replace newline with one that can put in eqn. numbers
    \global\@IEEEeqncolcnt\z@% col. count = 0 for first line
@@ -3869,7 +3869,7 @@ $$\@ignoretrue}
    \edef\@IEEEeqnarraycolSEPdefaultmid{\@IEEEeqnarraycolSEPzero}% default inter-column glue
    \@advanceIEEEeqncolcntfalse% do not advance the col counter for each col the user uses, 
                               % used in \IEEEeqnarraymulticol and in the preamble build
-   \IEEEeqnarrayboxdecl\relax% allow a way for the user to make global overrides
+   \IEEEeqnarrayboxdecl\relax% allow a way for the user to Makefile global overrides
    #1\relax% allow user to override defaults
    \let\\\@IEEEeqnarrayboxcr% replace newline with one that allows optional spacing
    \@IEEEbuildpreamble{#4}\relax% build the preamble and put it into \@IEEEtrantmptoksA
@@ -4162,7 +4162,7 @@ in the IEEEeqnarray column specifications.}%
 \if\@IEEEBPprevtype c\relax% if the previoustype was a col, add column/glue pair to preamble
 \ifnum\@IEEEeqnnumcols>0\relax\@IEEEappendtoksA{&}\fi
 \toks0={##}%
-% make preamble advance col counter if this environment needs this
+% Makefile preamble advance col counter if this environment needs this
 \if@advanceIEEEeqncolcnt\@IEEEappendtoksA{\global\advance\@IEEEeqncolcnt by 1\relax}\fi
 % insert the column defintion into the preamble, being careful not to expand
 % the column definition
@@ -4200,7 +4200,7 @@ between column types.}%
 \if\@IEEEBPnexttype e\@IEEEappendtoksA{\tabskip=\@IEEEBPendglue\relax}\else%put in end glue
 \@IEEEappendtoksA{\tabskip=\@IEEEeqnarraycolSEPdefaultmid\relax}\fi% or default mid glue
 \toks0={##}%
-% make preamble advance col counter if this environment needs this
+% Makefile preamble advance col counter if this environment needs this
 \if@advanceIEEEeqncolcnt\@IEEEappendtoksA{\global\advance\@IEEEeqncolcnt by 1\relax}\fi
 % insert the column definition into the preamble, being careful not to expand
 % the column definition
@@ -4503,7 +4503,7 @@ between column types.}%
 \def\newblock{\hskip .11em plus .33em minus .07em}%
 % originally:
 %   \sloppy\clubpenalty4000\widowpenalty4000%
-% by adding the \interlinepenalty here, we make it more
+% by adding the \interlinepenalty here, we Makefile it more
 % difficult, but not impossible, for LaTeX to break within a reference.
 % The IEEE almost never breaks a reference (but they do it more often with
 % technotes). You may get an underfull vbox warning around the bibliography, 
@@ -4535,7 +4535,7 @@ between column types.}%
 % height - this allows for a more compact line packing, but the user must ensure that
 % the interline spacing is large enough to prevent \IEEEauthorrefmark{} from colliding
 % with the text above.
-% V1.7 make this a robust command
+% V1.7 Makefile this a robust command
 % V1.8 transmag uses an arabic author affiliation symbol
 \ifCLASSOPTIONtransmag
 \DeclareRobustCommand*{\IEEEauthorrefmark}[1]{\raisebox{0pt}[0pt][0pt]{\textsuperscript{\footnotesize #1}}}
@@ -4575,7 +4575,7 @@ between column types.}%
 \fi
 
 % baseline spacing within name and affiliation blocks (confmode)
-% must be positive, spacings below certain values will make 
+% must be positive, spacings below certain values will Makefile
 % the position of line of text sensitive to the contents of the
 % line above it i.e., whether or not the prior line has descenders, 
 % subscripts, etc. For this reason it is a good idea to keep
@@ -4856,7 +4856,7 @@ between column types.}%
 % V1.8a allow \IEEEcompsocdiamondline to adjust for different linewidths.
 % Use \@IEEEcompsocdiamondlinei if its width is less than 0.66\linewidth (0.487 nominal for single column)
 % if not, fall back to \@IEEEcompsocdiamondlineii if its width is less than 0.75\linewidth (0.659 nominal for double column)
-% if all else fails, try to make a custom diamondline based on the abnormally narrow linewidth
+% if all else fails, try to Makefile a custom diamondline based on the abnormally narrow linewidth
 \def\IEEEcompsocdiamondline{\settowidth{\@IEEEtrantmpdimenA}{\@IEEEcompsocdiamondlinei}\relax
 \ifdim\@IEEEtrantmpdimenA<0.66\linewidth\relax\@IEEEcompsocdiamondlinei\relax
 \else
@@ -4870,7 +4870,7 @@ between column types.}%
 \fi\fi}
 
 
-% V1.7 standard LateX2e \thanks, but with \itshape under compsoc. Also make it a \long\def
+% V1.7 standard LateX2e \thanks, but with \itshape under compsoc. Also Makefile it a \long\def
 % We also need to trigger the one-shot footnote rule
 \def\@IEEEtriggeroneshotfootnoterule{\global\@IEEEenableoneshotfootnoteruletrue}
 
@@ -4986,7 +4986,7 @@ between column types.}%
 %                    [offset][prevdepth][lineskip limit][lineskip]
 %                    {unit height}{nominal vspace}{minimum vspace}
 %
-% Calculates and creates the vspace needed to make the combined height with
+% Calculates and creates the vspace needed to Makefile the combined height with
 % the given object an integer multiple of the given unit height. This command
 % is more general than the older \@IEEEdynamictitlevspace it replaces.
 %
@@ -5451,7 +5451,7 @@ between column types.}%
 % (for \@sect)   #2 - section level
 %                #3 - section heading indent
 %                #4 - top separation (absolute value used, neg indicates not to indent main text)
-%                     If negative, make stretch parts negative too!
+%                     If negative, Makefile stretch parts negative too!
 %                #5 - (absolute value used) positive: bottom separation after heading,
 %                      negative: amount to indent main text after heading
 %                Both #4 and #5 negative means to indent main text and use negative top separation
@@ -5808,7 +5808,7 @@ between column types.}%
 % 
 % We generalize things via control macros - playing with these is fun too.
 % 
-% V1.7 added more control macros to make it easy for IEEEtrantools.sty users
+% V1.7 added more control macros to Makefile it easy for IEEEtrantools.sty users
 % to change the font style.
 % 
 % the number of lines that are indented to clear it
@@ -5928,7 +5928,7 @@ between column types.}%
 \ifnum\@IEEEtrantmpdimenB < 0 \@IEEEtrantmpdimenB 0pt\fi
 % \@IEEEtrantmpdimenA has the width of the big letter plus the
 % separation space and \@IEEEPARstartfont is the font we need to use
-% Now, we make the letter and issue the hanging indent command
+% Now, we Makefile the letter and issue the hanging indent command
 % The letter is placed in a box of zero width and height so that other
 % text won't be displaced by it.
 \hangindent\@IEEEtrantmpdimenB\hangafter=-\IEEEPARstartDROPLINES%
@@ -6120,7 +6120,7 @@ between column types.}%
 % consideration when dynamically setting the space between the author 
 % names and the maintext.
 %
-% the amount the main text is pulled up to make room for the
+% the amount the main text is pulled up to Makefile room for the
 % publisher's ID footer
 % The IEEE uses about 1.3\baselineskip for journals, 
 % dynamic title spacing will clean up the fraction
@@ -6154,7 +6154,7 @@ between column types.}%
 
 
 % command which will pull up (shorten) the column it is executed in
-% to make room for the publisher ID. Place in the second column of
+% to Makefile room for the publisher ID. Place in the second column of
 % the title page when using \IEEEpubid
 % Is smart enough not to do anything when in single column text or
 % if the user hasn't called \IEEEpubid
@@ -6255,7 +6255,7 @@ between column types.}%
 \newenvironment{@IEEEbogusbiography}[2][]{\if@IEEEWARNIEEEbiography\typeout{** WARNING: \noexpand\IEEEbiography
  is locked out when in conference mode (line \the\inputlineno).}\fi\global\@IEEEWARNIEEEbiographyfalse%
 \setbox\@IEEEtranrubishbin\vbox\bgroup}{\egroup\relax}
-% and make biography point to our bogus biography
+% and Makefile biography point to our bogus biography
 \let\IEEEbiography=\@IEEEbogusbiography
 \let\endIEEEbiography=\end@IEEEbogusbiography
 
