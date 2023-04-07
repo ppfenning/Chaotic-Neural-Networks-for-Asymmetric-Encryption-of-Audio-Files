@@ -40,6 +40,7 @@ Enter the field encryption, the process of encoding information.
 Encryption allows one to take a plaintext message we wish to transmit and transforms it into a ciphertext.
 Said ciphertext is illegible to those who do not have a \textit{key}.
 
+
 Most modern encryption processes create a \textit{psuedo-random} key via a defined algorithm.
 These algorithms can be broken into two schemes: \textbf{Symmetric-key Encryption} and \textbf{Public-key Encryption.}
 Symmetric-key Encryption algorithms create a single secret-key which both the sender and receiver have.
@@ -51,61 +52,53 @@ Said message is sent to the receiver where the private key is used to decrypt it
 Because the private key is the only way to decipher the message, public-keys can be shared with impunity.
 Though both methods do nothing to prevent the cipher from being intercepted by a third party, if the algorithm is strong enough, it should be illegible.
 
+
 Billions of packets of information flow throughout the internet on a daily basis.
 The larger the packet, the longer the encryption will.
 In this paper we will develop our own algorithm to encrypt several audio files of varying.
 The aforementioned algorithm will be developed using what is known as a \textbf{Chaotic Neural Network.}
 This algorithm will be benchmarked for both efficiency and effectiveness against one symmetric-key method, \textbf{Advanced Encryption Standard} (AES), as well as one public-key method, the \textbf{Rivest–Shamir–Adleman} algorithm (RSA).
 
-
-\section{Background}\label{sec:background}
-
-There are many possible algorithms for encryption.
-One trait they share is the creation of a large \textit{psuedo-random} sequence used to create a cipher.
-Chaos is fast and efficient way to create these sequences.
-
-\subsection{What is Chaos?}\label{subsec:what-is-chaos?}
-
-Chaos is the scientific study of dynamic systems.
-These systems are abundant in nature and are highly sensitive to initial conditions.
-Edward Lorenz, the founding-father of chaos theory, once described chaos as
-
-\begin{framed}
-    \begin{quote}
-        When the present determines the future, but the approximate present does not approximately determine the future.
-    \end{quote}
-    ~\cite{Alligood}
-\end{framed}
-
-
-This
-
 \section{Literature Review}\label{sec:literature-review}
 
-\subsection*{\textbf{Chaotic Neural Network Based Pseudo Random Sequence Generator for Cryptographic Applications}}\label{subsec:chaotic-neural-network-based-pseudo-random-sequence-generator-for-cryptographic-applications}\cite{Lokesh}
+\subsection{\textbf{Chaos: An Introduction to Dynamical Systems}}\label{subsec:chaos:-an-introduction-to-dynamical-systems}
 
-\subsection*{\textbf{Cryptography Using Artificial Neural Networks}}\label{subsec:cryptography-using-artificial-neural-networks}\cite{Gujral}
+Alligood~\cite{Alligood} provides an excellent course in the study of such dynamical systems.
+She successfully explains chaotic phenomena in nature using Linear Algebra, Differential Equations and Numeric Analysis.
+The book defines chaos as a field of study while introducing the idea of chaotic maps.
+These maps are recursive in nature, and are highly sensitive to initial conditions.
+Each iteration is mapped to a new phase-space for which the rate of separation of points in the sequence is directly related to the system's Lyapunov Exponents.
+There is one exponent for each degree of freedom the chosen system has.
+The scalar value of the exponent determines how the basis stretch ($LE > 1$) or shrink ($LE < 1$).
+Sequences created by such maps, though deterministic, can be unstable.
+These unstable sequences are known as chaotic orbits.
+This instability is statistically indistinguishable in nature to randomness, making them ideal candidates for providinging repeatable pseudo-random arrays.
 
-\subsection*{\textbf{Public Key Cryptography Based on Chaotic Neural Network}}\label{subsec:public-key-cryptography-based-on-chaotic-neural-network}\cite{Hamdy}
+\subsection{\textbf{A Review on Applications of Chaotic Maps in Pseudo-Random Number Generators and Encryption}}\label{subsec:a-review-on-applications-of-chaotic-maps-in-pseudo-random-number-generators-and-encryption}
+\cite{Naik2022}
 
-\subsection*{\textbf{Chaos: An Introduction to Dynamical Systems}}\label{subsec:chaos:-an-introduction-to-dynamical-systems}\cite{Alligood}
+\subsection{\textbf{Cryptography Using Artificial Neural Networks}}\label{subsec:cryptography-using-artificial-neural-networks}
+\cite{Gujral}
 
-\subsection*{\textbf{A Novel Color Image Encryption Scheme Based on Hyperchaos and Hopfield Chaotic Neural Network}}\label{subsec:a-novel-color-image-encryption-scheme-based-on-hyperchaos-and-hopfield-chaotic-neural-network}\cite{Wu2022}
+\subsection{\textbf{Chaotic Neural Network Based Pseudo Random Sequence Generator for Cryptographic Applications}}\label{subsec:chaotic-neural-network-based-pseudo-random-sequence-generator-for-cryptographic-applications}
+\cite{Lokesh}
+\subsection{\textbf{Public Key Cryptography Based on Chaotic Neural Network}}\label{subsec:public-key-cryptography-based-on-chaotic-neural-network}
+\cite{Hamdy}
+\subsection{\textbf{A Novel Color Image Encryption Scheme Based on Hyperchaos and Hopfield Chaotic Neural Network}}\label{subsec:a-novel-color-image-encryption-scheme-based-on-hyperchaos-and-hopfield-chaotic-neural-network}
+\cite{Wu2022}
+\subsection{\textbf{An Image Encryption Algorithm Based on a New Fractional Order Chaotic Neural Network}}\label{subsec:an-image-encryption-algorithm-based-on-a-new-fractional-order-chaotic-neural-network}
+\cite{Li2022}
+\subsection{\textbf{Comparison of Cryptography by Chaotic Neural Network and by AES}}\label{subsec:comparison-of-cryptography-by-chaotic-neural-network-and-by-aes}
+\cite{Skovajsova2019}
+\subsection{\textbf{Design of Chaotic Neural Network Based Method for Cryptographic Substitution Box}}\label{subsec:design-of-chaotic-neural-network-based-method-for-cryptographic-substitution-box}
+\cite{Ahmad2016}
+\subsection{\textbf{On Chaotic Neural Network Design: A New Framework}}\label{subsec:on-chaotic-neural-network-design:-a-new-framework}
+\cite{Qin2017}
+\subsection{\textbf{An Empirical Investigation of Using ANN Based N-State Sequential Machine and Chaotic Neural Network in the Field of Cryptography}}\label{subsec:an-empirical-investigation-of-using-ann-based-n-state-sequential-machine-and-chaotic-neural-network-in-the-field-of-cryptography}
+\cite{Shukla2012}
 
-\subsection*{\textbf{An Image Encryption Algorithm Based on a New Fractional Order Chaotic Neural Network}}\label{subsec:an-image-encryption-algorithm-based-on-a-new-fractional-order-chaotic-neural-network}\cite{Li2022}
-
-\subsection*{\textbf{Comparison of Cryptography by Chaotic Neural Network and by AES}}\label{subsec:comparison-of-cryptography-by-chaotic-neural-network-and-by-aes}\cite{Skovajsova2019}
-
-\subsection*{\textbf{Design of Chaotic Neural Network Based Method for Cryptographic Substitution Box}}\label{subsec:design-of-chaotic-neural-network-based-method-for-cryptographic-substitution-box}\cite{Ahmad2016}
-
-\subsection*{\textbf{On Chaotic Neural Network Design: A New Framework}}\label{subsec:on-chaotic-neural-network-design:-a-new-framework}\cite{Qin2017}
-
-\subsection*{\textbf{An Empirical Investigation of Using ANN Based N-State Sequential Machine and Chaotic Neural Network in the Field of Cryptography}}\label{subsec:an-empirical-investigation-of-using-ann-based-n-state-sequential-machine-and-chaotic-neural-network-in-the-field-of-cryptography}\cite{Shukla2012}
-
-\subsection*{\textbf{A Review on Applications of Chaotic Maps in Pseudo-Random Number Generators and Encryption}}\label{subsec:a-review-on-applications-of-chaotic-maps-in-pseudo-random-number-generators-and-encryption}\cite{Naik2022}
-
-\subsection*{\textbf{Design of a Chaotic Neural Network for Training and Retrieval of Grayscale and Binary Patterns}}\label{subsec:design-of-a-chaotic-neural-network-for-training-and-retrieval-of-grayscale-and-binary-patterns}\cite{TAHERKHANI20112824}
-
+\subsection{\textbf{Design of a Chaotic Neural Network for Training and Retrieval of Grayscale and Binary Patterns}}\label{subsec:design-of-a-chaotic-neural-network-for-training-and-retrieval-of-grayscale-and-binary-patterns}
+\cite{TAHERKHANI20112824}
 
 \section{Building the Network}\label{sec:building-the-network}
 
