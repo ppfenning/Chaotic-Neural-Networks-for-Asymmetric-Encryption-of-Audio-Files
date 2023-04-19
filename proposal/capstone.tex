@@ -6,6 +6,7 @@
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage{textcomp}
+\usepackage{stmaryrd}
 \newcommand{\BibTeX}{\textrm{B \kern -.05em \textsc{i \kern -.025em b} \kern -.08em
 T \kern -.1667em \lower .7ex \hbox{E} \kern -.125emX}}
 \begin{document}
@@ -22,48 +23,47 @@ pfenningp@wit.edu}
 \maketitle
 
 \begin{abstract}
-This document is a model and instructions for \LaTeX.
-This and the IEEEtran.cls file define the components of your paper [title, text, heads, etc.]. *CRITICAL: Do Not Use Symbols, Special Characters, Footnotes,
-or Math in Paper Title or Abstract.
+This paper focuses on developing a new algorithm for encrypting audio files using a Chaotic Neural Network (CNN)
+Said algorithm is benchmarked for its efficiency and effectiveness against two standard encryption methods, Advanced Encryption Standard (AES) and Rivest–Shamir–Adleman (RSA).
+The intent of each layer of the network utilizes chaotic maps, which can be used to generate pseudo-random arrays.
+These arrays are transformed into bitmaps which are used to encrypt files using Waveform Audio File Format.
+The results show that the proposed algorithm is more efficient and effective than both AES and RSA, but may be easier to crack.
 \end{abstract}
 
 \begin{IEEEkeywords}
-component, formatting, style, styling, insert
+chaos, encryption, audio, neural networks, pseudo-random
 \end{IEEEkeywords}
 
 \section{Introduction}\label{sec:introduction}
-
-The world we live in has become wildly dependent on fast transfer of information.
-Everything from our work and education to our entertainment and social life often requires the internet as a medium.
+The world we live in has become wildly dependent on the fast transfer of information.
+Everything, from our work and education to our entertainment and social life, often requires the internet as a medium.
 With this abundance of information, how can one ensure that their personal data remains private to bad actors?
-Enter the field encryption, the process of encoding information.
-Encryption allows one to take a plaintext message we wish to transmit and transforms it into a ciphertext.
-Said ciphertext is illegible to those who do not have a \textit{key}.
-
+Enter the field of encryption, the process of encoding information.
+Encryption allows one to take a plaintext message we wish to transmit and transform it into a ciphertext.
+This ciphertext is illegible to those who do not have a \textit{key}.
 
 Most modern encryption processes create a \textit{psuedo-random} key via a defined algorithm.
 These algorithms can be broken into two schemes: \textbf{Symmetric-key Encryption} and \textbf{Public-key Encryption.}
-Symmetric-key Encryption algorithms create a single secret-key which both the sender and receiver have.
+Symmetric-key Encryption algorithms create a single secret key which both the sender and receiver have.
 This key is used to both encrypt and decrypt the message.
 The security of this method directly depends on the holders of the key as anyone who has it can read the cipher.
 Public-key Encryption algorithms require the message receiver to generate both a public and private key.
 The receiver shares the public key with the trusted sender who uses it to encrypt a message.
-Said message is sent to the receiver where the private key is used to decrypt it.
+The message is sent to the receiver where the private key is used to decrypt it.
 Because the private key is the only way to decipher the message, public-keys can be shared with impunity.
 Though both methods do nothing to prevent the cipher from being intercepted by a third party, if the algorithm is strong enough, it should be illegible.
 
-
 Billions of packets of information flow throughout the internet on a daily basis.
-The larger the packet, the longer the encryption will.
-In this paper we will develop our own algorithm to encrypt several audio files of varying.
+The larger the packet, the longer the encryption will take.
+In this paper, we will develop our own algorithm to encrypt several audio files of varying sizes.
 The aforementioned algorithm will be developed using what is known as a \textbf{Chaotic Neural Network} (CNN).
-This algorithm will be benchmarked for both efficiency and effectiveness against one symmetric-key method, \textbf{Advanced Encryption Standard} (AES), as well as one public-key method, the \textbf{Rivest–Shamir–Adleman} algorithm (RSA).
+This algorithm will be benchmarked for both efficiency and effectiveness against one symmetric-key method, \textbf{Advanced Encryption Standard} (AES), as well as one public-key method, the \textbf{Rivest–Shamir–Adleman} (RSA).
 
 \section{Literature Review}\label{sec:literature-review}
 
-\subsection{\textbf{Chaos: An Introduction to Dynamical Systems}}\label{subsec:chaos:-an-introduction-to-dynamical-systems}
+\subsection{\textbf{Chaos: An Introduction to Dynamical Systems}~\cite{Alligood}}\label{subsec:chaos:-an-introduction-to-dynamical-systems}
 
-Alligood~\cite{Alligood} provides an excellent course in the study of such dynamical systems.
+Alligood provides an excellent course in the study of such dynamical systems.
 She successfully explains chaotic phenomena in nature using Linear Algebra, Differential Equations and Numeric Analysis.
 The book defines chaos as a field of study while introducing the idea of chaotic maps.
 These maps are recursive in nature, and are highly sensitive to initial conditions.
@@ -74,9 +74,9 @@ Sequences created by such maps, though deterministic, can be unstable.
 These unstable sequences are known as chaotic orbits.
 This instability is statistically indistinguishable in nature to randomness, making them ideal candidates for providinging repeatable pseudo-random arrays.
 
-\subsection{\textbf{A Review on Applications of Chaotic Maps in Pseudo-Random Number Generators and Encryption}}\label{subsec:a-review-on-applications-of-chaotic-maps-in-pseudo-random-number-generators-and-encryption}
+\subsection{\textbf{A Review on Applications of Chaotic Maps in Pseudo-Random Number Generators and Encryption}~\cite{Naik2022}}\label{subsec:a-review-on-applications-of-chaotic-maps-in-pseudo-random-number-generators-and-encryption}
 
-In 2019 Naik and Singh~\cite{Naik2022} gave a detailed review of Chaotic Neural Networks applications for encryption.
+In 2019 Naik and Singh gave a detailed review of Chaotic Neural Networks applications for encryption.
 The key aspect, as in many of the papers in this section is the creation of a viable generator.
 One way chaotic maps are used to generate a sequence of length \textbf{N}, which is equal to the byte-length of the plaintext file.
 These values are then converted to binary and one byte are taken from each value, often the first byte after the decimal point.
@@ -95,10 +95,10 @@ Said sequences are XORed to create a secret key.
 This secret key is then XORed with the audio file to encrypt.
 Their correlation coefficient between the plain and ciphered files were as low as 0.0014 with entropy was as high as 7.9995.
 
-\subsection{\textbf{Comparison of Cryptography by Chaotic Neural Network and by AES}}\label{subsec:comparison-of-cryptography-by-chaotic-neural-network-and-by-aes}
+\subsection{\textbf{Comparison of Cryptography by Chaotic Neural Network and by AES}\cite{Skovajsova2019}}\label{subsec:comparison-of-cryptography-by-chaotic-neural-network-and-by-aes}
 
-This 2019 paper by Skovajsová~\cite{Skovajsova2019} gives a step by step explanation of how AES encryption works and compares it to a prebuilt CNN.
-Both algorithms were tested on five random images of each of the following sizes: 512b, 1024b, 2048b, 3KB, 30KB and 3MB.
+This 2019 paper by Skovajsová~ gives a step by step explanation of how AES encryption works and compares it to a prebuilt CNN\@.
+Both algorithms were tested on five random images of each of the following sizes: 512b, 1024b, 2048b, 3KB, 30KB and 3MB\@.
 For both ciphering and deciphering, the CNN significantly outperformed the AES model in terms of speed.
 The ciphertext created by both models were identical in size to the plaintext file, showing no degradation of information.
 It was noted that the CNN used here was a Hopfield network that 1D chaotic maps for its neural weights.
@@ -108,27 +108,89 @@ To counteract this, we will be building multiple layer networks of varying dimen
 
 \section{Methodology}\label{sec:methodology}
 
-\subsection{Chaotic Functions}\label{subsec:chaotic-functions}
+\subsection{Generalization}\label{subsec:generalization}
 
-\begin{itemize}
-    \item Hénon map
-    \item Logistic map
-    \item Lorenz system
-    \item Tent map
-    \item Horseshoe map
-    \item \ldots
-\end{itemize}
+Suppose there exists some file $A$ which we wish to encrypt using a CNN\@.
+The first layer of our network is to transform $A \rightarrow A^\prime$, such that $A^\prime$ is the matrix containing the header bytes of the audio file $A$~\cite{app112110190}.
+We now define the integer $N$ as the byte length of $A^\prime$.
+Each subsequent layer of our network will consist of $N$ nodes~\cite{Ahmad2016}, with weights generated by the chosen chaotic map.
+Each map will have the set of initial conditions corresponding to:
 
-\subsection{Network and Diagram}\label{subsec:network-and-diagram}
+\begin{enumerate}
+    \item The chosen parameters of the map.
+    \item Input variable for each dimension of the map.
+    \item Some integer $k$ defining the number of iterations to remove from the generator.
+\end{enumerate}
 
-Outline inputs and hidden layers here
+We then plug in our parameters, supply our input variables and iterate the map $k+N$ times.
+Once removing the first $k$ values of the list, we are left with a matrix $Z_{d\times N}$ such that $d$ is the dimensionality of our map.
+We then apply the following transformation~\cite{Lokesh,app112110190} to our matrix:
 
-\begin{figure}[!ht]
-    \centering
-    \includegraphics{figures/CNN}
-    \caption{Example CNN Architecture}
-    \label{fig:CNN}
-\end{figure}
+\begin{equation}\label{eq:bitmap}
+    W_i = \bigoplus\left\big{|}\lfloor Z_i \rfloor\right\big{|}\times 10^{10} \mod 256
+\end{equation}
+
+Such that $i$ denotes which hidden layer of our network we are on.
+$W_i$ is the logical XOR to the byte-wise representation of our transformed map outputs.
+Each hidden layer of our network becomes a column of our overall weighted matrix $W$ such that
+
+\begin{equation*}\label{eq:weights}
+    W = \big[W_1 | \ldots | W_n \big]
+\end{equation*}
+
+We then XOR  $A^\prime$ with all columns of $W$ to obtain our the encrypted header $E^\prime$, and in turn the encrypted audio file $E$.
+The matrix $W$ acts as both our encryption and decryption key because
+
+\begin{equation*}
+    A^\prime = A^\prime \oplus W \oplus W = E^\prime \oplus W\\
+\end{equation*}
+
+Theoretically, this methodology should work for any set of chaotic maps we choose.
+Through the rest of this paper we will develop an algorithm using this methodology with a set of maps.
+
+\subsection{Choosing Our Maps}\label{subsec:choosing-our-maps}
+
+We have chosen audio as our medium for encryption.
+For ease of use, we will be using Waveform Audio File Format.
+Byte representations of these files are one dimensional and thus fit our methodology.
+Due to the one dimensional nature, we may use any size dimensional map to fit our needs.
+We have chosen to develop a network consisting of four hidden layers, each representing their own map.
+
+The first layer we will use is the Hénon Map\cite{Hamdy}
+
+\begin{align}\label{eq:Henon}
+    x_{n+1} &= 1 - ax_n^2 + y_n \\
+    y_{n+1} &= bx_n
+\end{align}
+
+This is a 1-D map that will act as a \textit{diffusion} layer in our system.
+Chaotic behavior occurs here with parameters $a=0.3$ and $b=1.4$.
+Our second layer will be the Ikeda Map~\cite{app112110190}
+
+\begin{align}\label{eq:Ikeda}
+    x_{n+1} &= 1 + u(x_n \cos(t_n) - y_n \sin(t_n))\\
+    y_{n+1} &= u(x_n \sin(t_n) + y_n \cos(t_n))\\
+    t_{n+1} &= \beta - \frac{\gamma}{1+x_{n+1}^2+y_{n+1}^2}
+\end{align}
+
+Where this system develops a chaotic attractor whenever $u\ge0.6$.
+Adding complexity, we turn to the 3-D map known as the Lorenz attractor~\cite{Naik2022}.
+
+\begin{align}\label{eq:Lorenz}
+    \frac{dx}{dt} &= \sigma (y - x)\\
+    \frac{dy}{dt} &= x (\rho - z) - y\\
+    \frac{dz}{dt} &= xy - \beta z
+\end{align}
+
+We will use parameter values $\sigma=10$, $\beta=\frac{8}{3}$ and $\rho=28$.
+Finally, we will use the most common chaotic function, the Logistic Map.
+
+\begin{equation}\label{eq:Logistic}
+    x_{n+1} = r x_n (1 - x_n)
+\end{equation}
+
+Such that $r=4$.
+It should be noted that $x_0 \exists [0,1]$ for chaotic behavior to occur.
 
 \section{Algorithm}\label{sec:algorithm}
 
