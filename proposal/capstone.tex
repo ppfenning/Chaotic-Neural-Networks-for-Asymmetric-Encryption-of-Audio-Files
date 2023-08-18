@@ -10,6 +10,8 @@
 \usepackage{verbatim}
 \usepackage[]{mdframed}
 \usepackage{setspace}
+\usepackage{caption}
+\usepackage{hyperref}
 \setstretch{1.5}
 \newcommand{\BibTeX}{\textrm{B \kern -.05em \textsc{i \kern -.025em b} \kern -.08em
 T \kern -.1667em \lower .7ex \hbox{E} \kern -.125emX}}
@@ -28,10 +30,12 @@ pfenningp@wit.edu}
 
 \begin{abstract}
 This paper focuses on developing a new algorithm for encrypting audio files symmetrically using a Chaotic Neural Network (CNN).
-Said algorithm is benchmarked for its efficiency and effectiveness against another symmetric algorithm Advanced Encryption Standard (AES).
-The intent of each layer is to iterate a chosen chaotic map, which can be used to generate pseudo-random arrays.
-These arrays are transformed into bitmaps which are used to encrypt files using Waveform Audio File Format.
-The results show that the proposed algorithm is more effective than AES in terms of encryption strength, but falls well short in computational efficiency.
+Central to our methodology is an iterative application of chaotic maps, where each hidden layer of the network represents a different chaotic attractor.
+This process engenders the generation of a pseudo-random arrays which are reduced to a singular cipher array, our encryption key.
+Said cipher is applied to the bitmap for each channel of the supplied Wave Audio File (WAV), and thus creating a secure ciphertext.
+A comprehensive assessment is conducted to benchmark the efficacy of our approach, evaluating both computational efficiency and strength of encryption.
+These findings include: an average increase in entropy rate of $2.02$, a peak signal-to-noise ratio of $4.09$, nearly identical to that of a random array, and a correlation to plaintext of $1.40\times10^{-5}$, an order of magnitude less than a random input.
+This study not only represents a novel encryption algorithm for audio, but contributes to a larger discussion of the importance of security and encryption in our increasingly technological world.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -62,7 +66,6 @@ The larger the packet, the longer the encryption will take.
 In this paper, we will develop our own algorithm to encrypt several audio files of varying sizes.
 The aforementioned algorithm will be developed using what is known as a \textbf{Chaotic Neural Network} (CNN).
 This algorithm will be symmetric similar to \textbf{Advanced Encryption Standard} (AES).
-This algorithm will be benchmarked for both efficiency and effectiveness against one symmetric-key method, .
 
 \section{Literature Review}\label{sec:literature-review}
 \input{literature-review}
@@ -87,24 +90,24 @@ Networks layers are a chosen chaotic map with a unique initial conditions corres
 \end{enumerate}
 \end{mdframed}
 
-For each layer we plug in our parameters, supply our input variables and iterate the map $k+N$ times.
-This results in a matrix $Z_{d \times (k+N)}$ such that $d$ is the dimensionality of our map.
+For each layer $i$ we plug in our parameters, supply our input variables and iterate the map $k_i+N$ times.
+This results in set of a matrices $Z_{d_i \times (k_i+N)}$ such that $d_i$ is the of dimensionality of our chosen maps, and $k_i$ is said map's primer.
 Similar to steps in other papers~\cite{Lokesh,app112110190}, we reduce our matrices using the following transformation:
 
 \begin{equation}\label{eq:bitmap}
-    W = \bigoplus^{i} \bigoplus^{j} \big\lfloor \left{|} Z_{(i, j)} \right{|} \times 10^{10} \big\rfloor \mod 2^{b}
+    W = \bigoplus^{i} \bigoplus^{j} \big\lfloor  Z_{(i, j, k_i:N)} \times 10^{\frac{b}{2}} \big\rfloor \mod 2^{b}
 \end{equation}
 
-Such that $i$ denotes a hidden layer of our network, and $j$ represents a dimension of the layer's map.
-$W$ is the logical XOR to the byte-wise representation of our chaotic outputs, resulting in an array of length ${k+N}$.
-Finally, we truncate the first $k$ iterations of $W$ to obtaining our cipher $C$ of length $N$.
+Such that $i$ denotes a hidden layer of our network, $j$ represents a dimension of the layer's map.
+We use the $k_i:N$ to state that we will only take the last $N$ iterations of each matrix.
+$W$ is the logical XOR to the byte-wise representation of our chaotic outputs, resulting in an array of length ${N}$.
 
-$C$ can now be used to find our ciphertext such that $E^\prime=A^\prime \oplus C$.
+$W$ can now be used to find our ciphertext such that $E^\prime=A^\prime \oplus C$.
 When the sample rate of $A$ is applied to $E^\prime$, it becomes the encrypted audio file $E$.
 Given the properties of the XOR operation, $C$ acts as both our encryption and decryption such that:
 
 \begin{equation}\label{eq:xored}
-    A^\prime = A^\prime \oplus C \oplus C = E^\prime \oplus C = A^\prime
+    A^\prime = A^\prime \oplus W \oplus W = E^\prime \oplus W = A^\prime
 \end{equation}
 
 This satisfies the requirements of symmetric key encryption.
@@ -135,6 +138,7 @@ The first layer we will use is the two-dimensional Hénon Map~\cite{Hamdy}:
 \end{equation}
 
 \noindent Chaotic behavior occurs here with parameters $a=0.3$ and $b=1.4$.
+
 Our second layer will also be two-dimensional, the Ikeda Map~\cite{app112110190} :
 
 \begin{equation}\label{eq:Ikeda}
@@ -145,20 +149,23 @@ Our second layer will also be two-dimensional, the Ikeda Map~\cite{app112110190}
 \end{aligned}
 \end{equation}
 
+
 \noindent Where this system develops a chaotic attractor whenever $u\ge0.6$.
+
 Adding complexity, we turn to the three-dimensional map known as the Lorenz attractor~\cite{Naik2022}.
 
 \begin{equation}\label{eq:Lorenz}
 \begin{aligned}
-    \frac{dx}{dt} &= \sigma (y - x)\\
-    \frac{dy}{dt} &= x (\rho - z) - y\\
-    \frac{dz}{dt} &= xy - \beta z
+    \dot{x} &= \sigma (y - x)\\
+    \dot{y} &= x (\rho - z) - y\\
+    \dot{z} &= xy - \beta z
 \end{aligned}
 \end{equation}
 
 \noindent We will use parameter values $\sigma=10$, $\beta=\frac{8}{3}$ and $\rho=28$.
-This map is most famous for \textit{The Butterfly Effect}~\cite{Alligood}.
-Finally, we will use the most common chaotic function, the Logistic Map~\cite{Qin2017}:
+This map is most famous for \textit{The Butterfly Effect}~\cite{Alligood}, and is commonly used in weather prediction.
+
+Finally, we introduce the Logistic Map~\cite{Qin2017}:
 
 \begin{equation}\label{eq:Logistic}
     x_{n+1} = r x_n (1 - x_n)
@@ -168,67 +175,158 @@ Finally, we will use the most common chaotic function, the Logistic Map~\cite{Qi
 It should be noted that $x_0 \in [0,1]$ for chaotic behavior to occur.
 
 Due to the transitive properties of XOR shown in ~\eqref{eq:xored}, the order of these layers is of no consequence.
-In fact, these maps will be calculated in parallel, and then be reduced to $W^\prime$~\eqref{eq:bitmap}.
+In fact, these maps will be calculated in parallel, and then be reduced to $W$~\eqref{eq:bitmap}.
 
 \section{Key Generation}\label{subsec:key-generation}
 
-\begin{comment}
-    chaos_key = {
-    'primer': int(np.random.randint(100, 10000, 1)),
-    'henon': {"params": dict(zip(["a", "b"], [1.4, 0.3])), "v0": np.random.uniform(0, 100, 2).tolist()},
-    'ikeda': {"params": dict(zip(["mu", "beta", "gamma"], [0.7, 0.4, 6])), "v0": np.random.uniform(0, 100, 2).tolist()},
-    'lorenz': {"params": dict(zip(["sigma", "beta", "rho"], [10, 8 / 3, 28])), "v0": np.random.uniform(0, 100, 3).tolist()},
-    'logistic': {"params": dict(zip(["r"], [4])), "v0": np.random.random(1).tolist()},
-}
-\end{comment}
+To create our key we simply follow the steps laid out in Section \ref{sec:methodology}, and do the following:
+
+\begin{enumerate}
+    \item Choose our maps. Remember that order has no impact.
+    \item Set our parameters for the map. It should be noted that not all parameters lead to chaotic attractors, so please choose known chaotic parameters like those given in Section \ref{subsec:choosing-our-maps}.
+    \item Choose initial conditions. A random value in the range $[0, 1]$ often suffices.
+    \item Set a primer. This gives us some separation from our initial conditions.
+\end{enumerate}
+
+\noindent The table below provides an example key using the aforementioned steps:
+
+\begin{tabular}{llll}
+    \hline
+    \textbf{map} & \textbf{parameters} & \textbf{primer} & \textbf{initial condition} \\
+    \hline
+    henon & [1.4, 0.3] & 171 & [0.055, 0.005]\\
+    ikeda & [0.9] & 353 & [0.068, 0.377]\\
+    logistic & [4] & 250 & [0.945]\\
+    lorenz & [10, 28, 2.67] & 817 & [0.459, 0.137, 0.726]\\
+    \hline
+\end{tabular}
+\\
+
+This key can now be used as input for our hidden layers, with outputs being reduced to our cipher $W$.
 
 \section{Experimentation and Results}\label{sec:experimentation-and-results}
 
 \subsection{Processing Time and Complexity}\label{subsec:processing-time-and-complexity}
 
-\includegraphics[scale=.35]{figures/loglog}
+One major fault of this process is efficiency.
+As this method is in its infancy, it has yet to be optimized like AES and RSA\@.
+Though efforts were made to optimize code using modules like \textit{numpy} and \textit{numba}, python itself is slow.
+The below image shows a Log-Log graph of encryption time vs file size:
+
+\begin{center}
+    \includegraphics[scale=.5]{images/loglog}
+\end{center}
+
+We see that this image shows this algorithm may be $O(n^2)$, taking exponential time to encrypt as file size increases.
+Currently, each cipher is recreated in full each run.
+Because all sequences used are chaotic deterministic, methods like hash tables could be of use in the future.
+The only input for our cipher is byte-length, so if we have encrypted a file of length N, we can also encrypt files smaller than N\@.
 
 \subsection{Entropy Analysis}\label{subsec:entropy-analysis}
 
-\begin{comment}
-    entropy = 15.96231011061872
-\end{comment}
+Shannon Entropy measures the uncertainty of a value given random choice.
+We used this metric to show the randomness of values within an array.
+All matrices used in this section, as well as the two following, have only integer values in the range $[-2^{16}, 2^{16}]$.
+Audio files generally have a high entropy as they are often one dimensional and time variant.
+Thus, the goal here is to have a significant increase in entropy from plaintext to comparison.
+In this experiment we found entropy for plaintext audio, the encrypted audio and a random array of the same shape.
 
+\begin{tabular}{|l|l|}
+    \hline
+    \textbf{Entropy of Plaintext Audio} & 9.015836 \\
+    \textbf{Entropy of Encrypted Audio} & 11.038566 \\
+    \textbf{Entropy of Random Array} & 11.674987 \\
+    \hline
+\end{tabular}
+\\
 
-\subsection{Correlation Analysis}\label{subsec:correlation-analysis}
-
-\begin{comment}
-    correlation = -0.0004532286205853115
-\end{comment}
+As stated above, audio has a high level of entropy as compared to static arrays like images.
+This is because surrounding pixels are associated by position rather than time.
+The baseline entropy we received from our plaintext was just over 9.
+In comparison, both the encrypted and random arrays showed an increase to 11, denoting a higher level of variance in choice than the plaintext.
+With entropy, as well as the following metrics, we hope to find that our encrypted metric is comparable to that of the random array.
 
 
 \subsection{Peak Signal to Noise Ratio}\label{subsec:peak-signal-to-noise-ratio}
 
-\begin{comment}
-    psnr_vr_random = -0.00025854809743286467
-\end{comment}
+The Peak Signal to Noise Ratio (PSNR) measures similarity between two images.
+This process is often used to determine loss of quality when compressing an image.
+Outcomes are measured on a percentage scale, with 100 stating the images being compared are identical.
+For our intents and purposes, we hope to minimize our PSNR value.
+Because we are using audio files, we converted our arrays to an image.
+To do this, we took the absolute value of our array, divide by the maximum, and multiply by 255.
+This results in an array of floats from 0 to 255, which can then be read as an image.
+The below table gives the PSNR for our plain audio verses the encrypted file, the decrypted file and a random array of the same dimensions.
+
+\begin{tabular}{|l|l|}
+    \hline
+    \textbf{PSNR of Encrypted Audio} & 4.094938 \\
+    \textbf{PSNR of Decrypted Audio} & 100.000000 \\
+    \textbf{PSNR of Random Array} & 4.093613 \\
+    \hline
+\end{tabular}
+\\
+
+We expect our decrypted file to be equivalent to the plaintext.
+With a PSNR of 100, that expectation is verified.
+We now notice that the encrypted file and the random array have nearly identical PSNR.
+Not only does our encrypted file extremely dissimilar from its plaintext counterpart, it is almost indistinguishable from that of a random sequence.
+
+\subsection{Correlation Analysis}\label{subsec:correlation-analysis}
+
+Another direct comparison between files is correlation.
+This metric was taken at the channel level, therefore each array in stereo WAV file is considered to be its own object.
+To do this created a matrix with two columns, the first always the plain audio channel, with the second as the desired comparison array.
+We again checked three cases, encrypted, decrypted and random.
+Correlation provides outputs in the range $[-1, 1]$, with $1$ being perfect positive correlation, and $-1$ as perfect negative.
+We want no correlation between the encrypted and plain file, and thus are looking for a correlation close to zero.
+
+\begin{tabular}{|l|l|}
+    \hline
+    \textbf{Encrypted Audio vs Plain Audio} & 0.000014 \\
+    \textbf{Decrypted Audio vs Plain Audio} & 1.000000 \\
+    \textbf{Random Array vs Plain Audio} & 0.000233 \\
+    \hline
+\end{tabular}
+\\
+
+As a sanity-check, we see that out decrypted file has a perfect positive correlation with the plaintext, as intended.
+Encrypted files showed an extremely low correlation, $1.40\times10^{-5}$, which is an order of magnitude smaller than that of random arrays.
+Therefore, we have shown that our encrypted file shows no correlation with its plaintext counterpart.
 
 
 \subsection{Key Sensitivity}\label{subsec:key-sensitivity}
 
-\begin{comment}
-    inter_psnr = 1.7522768670906752
-    inter_corr = -0.0015375314686573802
-    k1_primer = 3590
-    k2_primer = 3592
-\end{comment}
+Given the nature of chaotic sequences, and set of unique initial conditions will never overlap.
+Chaotic sequences exist in a fractional dimension, and can fill the space with the next integer dimension above it.
+These sequences can hit all real points within a dimension without having any volume in said space.
+For example, The Lorenz Attractor~\cite{Alligood} has a fractional dimension just over two, but can fill a three-dimensional space.
+This behavior contributes to chaotic sensitivity to initial conditions.
+The below figure shows examples for each of our four chaotic maps with two unique keys.
+Points of these sequences will never overlap, and thus are highly reactive to any change.
+Unless a bad actor knows the exact values chosen for a key, they will be unable to decipher the encrypted message.
+Keys are highly sensitive to change to any parameter, initial condition or primer.
 
 \begin{center}
-    \includegraphics[scale=.25]{figures/MKE}
+    \includegraphics[scale=.2]{images/KeySen}
 \end{center}
 
-\subsection{Vulnerability to Attacks}\label{subsec:vulnerability-to-attacks}
 
 \section{Future Work}\label{sec:future-work}
 
+This process need not be limited to audio encryption.
+Given that we are just creating a cipher from a given byte length, this application may be applied to any binary array.
+This includes, but is not limited to: text, other audio mediums, image, and video.
+We intend to maintain the code associated with this project which can be found in the following repository \href{https://github.com/ppfenning/Symmetric-Encryption-via-CNN}{\textbf{Symmetric-Encryption-via-CNN}}.
+We hope to add more chaotic options, as well as a text interface to choose the key order, including multiple instances of the same map within a key.
+
 \section{Conclusion}\label{sec:conclusion}
 
-\section{Acknowledgments}\label{sec:acknowledgments}
+In terms of theory, we have shown that encryption via chaotic sequences is both repeatable and effective.
+In order to be practical, efficiency of this process must be addressed.
+Given the high level of key sensitivity, as well as the variablity of map choice, keys such as this will be immensely difficult to crack.
+Future work, include direct comparison to existing methodologies, are still on the horizon.
+We do however believe this process shows immense promise in the field of encryption.
 
 \bibliographystyle{ieeetr}
 \bibliography{bib/bibliography}
